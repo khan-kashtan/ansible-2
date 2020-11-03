@@ -1,0 +1,3 @@
+*.retry
+dynamo.gcp.yml
+ansible.cfg

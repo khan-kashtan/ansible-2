@@ -1,0 +1,12 @@
+[defaults]
+inventory = ./dynamo.gcp.yml
+host_key_checking = False
+retry_files_enabled = False
+deprecation_warnings = False
+
+# Input ssh key path and ssh username
+remote_user = #ssh_username
+private_key_file = #~/.ssh/private_key_path
+
+[inventory]
+enable_plugins = gcp_compute

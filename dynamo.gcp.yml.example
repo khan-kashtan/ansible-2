@@ -1,0 +1,9 @@
+plugin: gcp_compute
+projects:
+  - Project_id
+auth_kind: serviceaccount
+# Service account key generating white via link: https://developers.google.com/identity/protocols/oauth2/service-account
+service_account_file: /home/username/gcp_service_account.json
+keyed_groups:
+  - key: name
+    separator: ""
