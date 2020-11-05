@@ -1,0 +1,41 @@
+---
+- name: Configure app host
+  hosts: reddit_app
+  vars:
+    db_host: 10.132.15.228
+  become: yes
+
+  tasks:
+    - name: Install ruby
+      apt:
+        update_cache: yes
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ruby-full
+        - ruby-bundler
+        - build-essential
+
+    # - name: Install specific bundler version
+    #   gem: name=bundler state=present version=1.16.1
+
+    - name: add unit file for Puma service
+      template:
+        src: files/puma.service
+        dest: /etc/systemd/system/puma.service
+        mode: 0644
+      notify: reload puma
+
+    - name: add Puma db config
+      template:
+        src: templates/db_config.j2
+        dest: /etc/custom_db_config
+        mode: 0644
+      notify: reload puma
+
+    - name: enable puma
+      systemd: name=puma enabled=yes
+
+  handlers:
+    - name: reload puma
+      systemd: name=puma daemon-reload=yes state=restarted

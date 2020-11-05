@@ -1,0 +1,8 @@
+project = "project_id"
+public_key_path = "/home/username/.ssh/username.pub"
+user_ssh = "ssh_username"
+region  = "europe-west1"
+zone = "europe-west1-b"
+machine_type = "g1-small"
+xenial_image = "ubuntu-1604-lts"
+focal_image = "ubuntu-2004-lts"

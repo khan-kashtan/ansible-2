@@ -1,0 +1,36 @@
+---
+- name: Configure db host
+  hosts: reddit_db
+  vars:
+    mongo_bind_ip: 0.0.0.0
+  become: yes
+
+  tasks:
+    - name: Add Mongod apt-key
+      apt_key:
+        url: https://www.mongodb.org/static/pgp/server-4.4.asc
+        state: present
+
+    - name: Add Mongod repo
+      apt_repository:
+        repo: "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse"
+        state: present
+
+    - name: Install Mongod
+      apt: name=mongodb-org update_cache=yes state=present
+      notify: restart mongo
+
+    - name: Activate Mongod
+      systemd: name=mongod enabled=yes
+      notify: restart mongo
+
+    - name: Change mongo config file
+      template:
+        src: templates/mongod.conf.j2
+        dest: /etc//mongod.conf
+        mode: 0644
+      notify: restart mongo
+
+  handlers:
+    - name: restart mongo
+      service: name=mongod state=restarted

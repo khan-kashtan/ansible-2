@@ -1,0 +1,24 @@
+---
+- name: Deploy bundler
+  hosts: reddit_app
+  tags: deploy-tag
+  become: yes
+
+  tasks:
+    - name: Get an application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/reddit
+        version: monolith
+        force: yes
+      notify: reload puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/reddit
+      notify: reload puma
+
+  handlers:
+    - name: reload puma
+      systemd: name=puma daemon-reload=yes state=restarted
