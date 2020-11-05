@@ -14,7 +14,7 @@
 ### Steps:
 
 1. #### Create instances:
-  - Set terraform vars at ./terraform/prod/terraform.tfvars.example
+  - Set terraform vars at ./terraform/prod/terraform.tfvars
     - Required: *project, public_key_path, user_ssh*
     - Optional: *region, zone, machine_type*
 
