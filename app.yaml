@@ -2,7 +2,7 @@
 - name: Configure app host
   hosts: reddit_app
   vars:
-    db_host: 10.132.15.228
+    db_host: reddit-db
   become: yes
 
   tasks:
@@ -15,9 +15,6 @@
         - ruby-full
         - ruby-bundler
         - build-essential
-
-    # - name: Install specific bundler version
-    #   gem: name=bundler state=present version=1.16.1
 
     - name: add unit file for Puma service
       template:

@@ -28,6 +28,5 @@ terraform apply -auto-approve
   - Read [Ansible docs](https://docs.ansible.com/ansible/latest/scenario_guides/guide_gce.html) to add GCE service account key.
   - Set service account JSON and project id at **dynamo.gcp.yml**
   - Set ssh private key path and ssh username at **ansible.cfg**
-  - Set database internal IP as variable *db_host* at **app.yaml** 
 
 3. For deploy use *site.yaml* 
